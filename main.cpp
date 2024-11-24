@@ -44,8 +44,7 @@ int main() {
     double realArea = static_cast<double>(0.25*M_PI+1.25*std::asin(0.8) - 1);
     // Monte Carlo simulation
     srand(time(0));
-    for(int s = 1; s < 2; s++){
-
+    for(int s = 1; s < 6; s++){
         for(int k = 100; k <= 100000; k+=500){
             int totalPoints = k;
             int insidePoints = 0;
@@ -74,12 +73,17 @@ int main() {
             cout.precision(8);
             cout << estimatedArea << endl;
         }
+        data.push_back(aprox_area);
+        data.push_back(n);
+        data.push_back(scale);
+        data.push_back(dif);
+        writeCSV(data, "output.csv");
+        aprox_area.clear();
+        n.clear();
+        scale.clear();
+        dif.clear();
+        data.clear();
     }
-    data.push_back(aprox_area);
-    data.push_back(n);
-    data.push_back(scale);
-    data.push_back(dif);
-    writeCSV(data, "output.csv");
 
     return 0;
 }

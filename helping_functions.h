@@ -14,8 +14,15 @@
 #include <sstream>
 #include "algorithm"
 
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <sstream>
+#include <algorithm> // Для std::replace
+
 inline void writeCSV(const std::vector<std::vector<double>>& data, const std::string& filename) {
-    std::ofstream file(filename);
+    // Открываем файл в режиме добавления
+    std::ofstream file(filename, std::ios::app);
 
     if (!file.is_open()) {
         std::cerr << "Error while opening file: " << filename << std::endl;
@@ -34,15 +41,16 @@ inline void writeCSV(const std::vector<std::vector<double>>& data, const std::st
             file << value; // Записываем строку в файл
 
             if (i < row.size() - 1) {
-                file << ";";
+                file << ";"; // Используем ; как разделитель
             }
         }
-        file << "\n";
+        file << "\n"; // Переход на новую строку
     }
 
     file.close();
     std::cout << "CSV file saved: " << filename << std::endl;
 }
+
 
 template <typename T>
 void printVector(const std::vector<T>& vec) {
